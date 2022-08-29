@@ -38,10 +38,14 @@
                     <input class="answer-checkbox" type="checkbox" value="logic-pro" />
                     <label for="logic-pro" class="checkbox-text">Logic Pro</label>
                 </div>
+                <div class="checkbox-container">
+                    <input class="answer-checkbox" type="checkbox" value="none" />
+                    <label for="none" class="checkbox-text">None</label>
+                </div>
             </div>
         </form>
         <div class="flex flex-row justify-between mt-auto mb-5">
-            <button :disabled="formProgress === 0" class="back-button m-2 pl-5 pr-5 w-4/12 border-secondary-color border-2 text-secondary-color rounded-full text-xl" @click="goBack()">Go back</button>
+            <button :disabled="formProgress === 0" class="back-button m-2 pl-5 pr-5 w-4/12 border-secondary-color border-2 text-secondary-color rounded-full text-xl" @click="goBack()">Go Back</button>
             <button class="m-2 pl-5 pr-5 w-4/12 bg-primary-color text-white rounded-full text-xl" @click="goNext()">{{formProgress >= amountOfQuestions ? `Submit` : 'Next'}}</button>
         </div>
     </div>
