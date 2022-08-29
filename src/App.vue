@@ -4,7 +4,7 @@ import WelcomePage from './components/WelcomePage.vue';
 
 <template>
     <div id="view">
-        <router-view></router-view>>
+        <router-view></router-view>
     </div>
 </template>
 
