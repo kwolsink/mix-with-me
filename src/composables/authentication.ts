@@ -9,7 +9,6 @@ export function authenticateWithGoogle() {
         const token = credential?.accessToken
         const user = result.user
     }).catch(error => {
-        console.log(error)
         console.error('Something went wrong with google authentication.')
     })
 }
