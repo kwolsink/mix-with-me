@@ -7,6 +7,7 @@ import Router from './router'
 // Firebase
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase } from "firebase/database"
 // TODO: Add SDKs for Firebase products that you want to use
 import { getAuth } from "firebase/auth"
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,12 +21,14 @@ const firebaseConfig = {
   storageBucket: "mix-with-me.appspot.com",
   messagingSenderId: "740385971274",
   appId: "1:740385971274:web:7e65788e913ba419645ab3",
-  measurementId: "G-LZ1J9TZBRJ"
+  measurementId: "G-LZ1J9TZBRJ",
+  databaseURL: "https://mix-with-me-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(firebaseApp)
+export const database = getDatabase(firebaseApp)
 
 createApp(App).use(Router).mount('#app')
