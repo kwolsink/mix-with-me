@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-full flex flex-col">
-        <form class="m-5">
+        <form class="m-5 pt-64">
             <div v-if="formProgress === 0" class="field flex flex-col justify-start">
                 <label class="question">What is your artist name?</label>
                 <input class="answer-text text-xl" type="text" />
@@ -52,6 +52,7 @@ import { ref } from 'vue'
 
 const amountOfQuestions = 2
 const formProgress = ref(0)
+
 
 
 const goNext = function() {
