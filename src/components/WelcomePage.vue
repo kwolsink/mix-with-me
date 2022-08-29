@@ -6,7 +6,7 @@
              nulla sequi perspiciatis ipsam quo quasi obcaecati fugiat.
               Provident ea debitis quisquam maiores praesentium?
         </p>
-        <div class="mt-auto mb-32">
+        <div class="mt-auto mb-32 flex flex-col items-center w-full">
             <button class="p-2 m-3 w-10/12  text-white bg-primary-color rounded">Register</button>
             <button class="p-2 m-3 w-10/12 text-secondary-color rounded border-secondary-color border-2">Already have an account?</button>
         </div>
