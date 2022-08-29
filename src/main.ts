@@ -2,6 +2,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import Router from './Router'
 
 // Firebase
 import { initializeApp } from "firebase/app";
@@ -27,4 +28,4 @@ export const firebaseApp = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(firebaseApp)
 
-createApp(App).mount('#app')
+createApp(App).use(Router).mount('#app')
