@@ -11,8 +11,8 @@ import Router from './router'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database"
-// TODO: Add SDKs for Firebase products that you want to use
 import { getAuth, connectAuthEmulator } from "firebase/auth"
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -33,6 +33,7 @@ export const firebaseApp = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(firebaseApp)
 export const database = getDatabase(firebaseApp)
+export const functions = getFunctions(firebaseApp)
 
 if (mode === 'development') {
   try {
@@ -41,6 +42,7 @@ if (mode === 'development') {
     console.info("Connecting emulators")
     connectDatabaseEmulator(database, 'localhost', 9000)
     connectAuthEmulator(auth, "http://localhost:9099");
+    connectFunctionsEmulator(functions, 'localhost', 5001)
     console.info("finished emulator connections")
   } 
   catch (e) {
