@@ -35,12 +35,19 @@ export const auth = getAuth(firebaseApp)
 export const database = getDatabase(firebaseApp)
 
 if (mode === 'development') {
-  console.warn("Running in dev mode")
+  try {
+    console.warn("Running in dev mode")
 
-  console.info("Connecting emulators")
-  connectDatabaseEmulator(database, 'localhost', 9000)
-  connectAuthEmulator(auth, "http://localhost:9099");
-  console.info("finished emulator connections")
+    console.info("Connecting emulators")
+    connectDatabaseEmulator(database, 'localhost', 9000)
+    connectAuthEmulator(auth, "http://localhost:9099");
+    console.info("finished emulator connections")
+  } 
+  catch (e) {
+    console.error("An error happened while setting up the dev environement")
+    console.log(e)
+  }
+
 }
 
 
