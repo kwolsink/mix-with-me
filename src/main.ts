@@ -1,3 +1,6 @@
+//vite
+const mode = import.meta.env.MODE
+
 //vue
 import { createApp } from 'vue'
 import './style.css'
@@ -7,9 +10,9 @@ import Router from './router'
 // Firebase
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database"
+import { getDatabase, connectDatabaseEmulator } from "firebase/database"
 // TODO: Add SDKs for Firebase products that you want to use
-import { getAuth } from "firebase/auth"
+import { getAuth, connectAuthEmulator } from "firebase/auth"
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -30,5 +33,15 @@ export const firebaseApp = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(firebaseApp)
 export const database = getDatabase(firebaseApp)
+
+if (mode === 'development') {
+  console.warn("Running in dev mode")
+
+  console.info("Connecting emulators")
+  connectDatabaseEmulator(database, 'localhost', 9000)
+  connectAuthEmulator(auth, "http://localhost:9099");
+  console.info("finished emulator connections")
+}
+
 
 createApp(App).use(Router).mount('#app')
