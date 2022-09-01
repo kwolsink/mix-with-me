@@ -28,6 +28,9 @@
             "$other": {
               ".validate": "! newData.exists()"
             }
+          },
+          "$other": {
+            ".validate": "! newData.exists()"
           }
         },
         "matches": {
