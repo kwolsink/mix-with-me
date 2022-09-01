@@ -1,0 +1,56 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        "profile": {
+          ".read": "auth !== null",
+          ".write": "$uid === auth.uid",
+          "artist_name": {
+            ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 20"
+          },
+          "bio": {
+            ".validate": "newData.isString() && newData.val().length <= 300"
+          },
+          "looking_for": {
+            ".validate": "newData.isString() && newData.val().length <= 50"
+          },
+          "skills": {
+            "ableton_live": {
+              ".validate": "newData.isBoolean()"
+            },
+            "fl_studio": {
+              ".validate": "newData.isBoolean()"
+            },
+            "logic_pro": {
+              ".validate": "newData.isBoolean()"
+            },
+            "$other": {
+              ".validate": "! newData.exists()"
+            }
+          }
+        },
+        "matches": {
+          ".read": "$uid === auth.uid",
+          "$other_uid": {
+            ".validate": "newData.isBoolean()"
+          }
+        },
+        "groups": {
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid",
+          "$group": {
+            ".validate": "newData.isBoolean() || newData.val() == null"
+          }
+        },
+        "chats": {
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid",
+          "$chat": {
+            ".validate": "newData.isBoolean()"
+          }
+        }
+      }
+    }
+  }
+}

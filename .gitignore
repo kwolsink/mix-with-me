@@ -27,3 +27,4 @@ dist-ssr
 # Firebase
 firebase.json
 .firebaserc
+db_scheme.json
