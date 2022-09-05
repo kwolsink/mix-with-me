@@ -6,23 +6,37 @@
         "profile": {
           ".read": "auth !== null",
           ".write": "$uid === auth.uid",
-          "artist_name": {
+          "artistName": {
             ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 20"
           },
           "bio": {
             ".validate": "newData.isString() && newData.val().length <= 300"
           },
-          "looking_for": {
+          "lookingFor": {
             ".validate": "newData.isString() && newData.val().length <= 50"
           },
           "skills": {
-            "ableton_live": {
+            "producer": {
               ".validate": "newData.isBoolean()"
             },
-            "fl_studio": {
+            "singer": {
               ".validate": "newData.isBoolean()"
             },
-            "logic_pro": {
+            "rapper": {
+              ".validate": "newData.isBoolean()"
+            },
+            "$other": {
+              ".validate": "! newData.exists()"
+            }
+          },
+          "producerSkills": {
+            "flStudio": {
+              ".validate": "newData.isBoolean()"
+            },
+            "abletonLive": {
+              ".validate": "newData.isBoolean()"
+            },
+            "logicPro": {
               ".validate": "newData.isBoolean()"
             },
             "$other": {
