@@ -5,14 +5,9 @@ const googleProvider = new GoogleAuthProvider()
 
 export async function authenticateWithGoogle() {
     try {
-        const result = await signInWithPopup(firebase.auth, googleProvider)
-        const credential = GoogleAuthProvider.credentialFromResult(result)
-        const token = credential?.accessToken
-        const user = result.user
-        return true
+        return await signInWithPopup(firebase.auth, googleProvider)
     }
     catch {
-        console.error('Something went wrong with google authentication.')
-        return false
+        throw 'authenticationError'
     }
 }   

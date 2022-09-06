@@ -15,14 +15,22 @@
 
 <script setup lang="ts">
 import {authenticateWithGoogle} from '../composables/authentication'
+import firebase from '../firebaseconfig'
+import {ref, get} from 'firebase/database'
 import router from '../router'
 
 const authenticatePopup = function() {
-    authenticateWithGoogle().then(res => {
-        if (res) {
-            router.push('configure')
-        }
+    authenticateWithGoogle().then((result) => {
+        const user = result.user
+        const dbRef = ref(firebase.database, `/users/${user.uid}/profile`)
+        const profile = get(dbRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                router.push('carousel')
+            } else {
+                router.push('configure')
+            }
+        })
+
     })
 }
-
 </script>
