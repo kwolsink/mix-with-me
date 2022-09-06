@@ -6,6 +6,7 @@
         "profile": {
           ".read": "auth !== null",
           ".write": "$uid === auth.uid",
+          ".validate": "newData.child('artistName').exists() || data.child('artistName').exists()",
           "artistName": {
             ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 20"
           },

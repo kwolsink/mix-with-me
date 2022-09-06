@@ -88,5 +88,14 @@ describe("profiles", () => {
             }
         }
         await assertFails(update(ref(theirDb, path), exampleProfile))
+    }),
+    it("should not allow a user set their profile without an artist name", async() => {
+        const path = "users/alice/profile"
+        const exampleWrongProfile = {
+            skills: {
+                producer: true,
+            }
+        }
+        await assertFails(set(ref(ourDb, path), exampleWrongProfile))
     })
 })

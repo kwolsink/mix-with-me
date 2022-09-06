@@ -42,7 +42,7 @@
         </form>
         <div class="flex flex-row justify-between mt-auto mb-5">
             <button :disabled="formProgress === 0" class="back-button m-2 pl-5 pr-5 w-4/12 border-secondary-color border-2 text-secondary-color rounded-full text-xl" @click="goBack()">Go Back</button>
-            <button class="m-2 pl-5 pr-5 w-4/12 bg-primary-color text-white rounded-full text-xl" @click="goNext()">{{formProgress >= amountOfQuestions ? `Submit` : 'Next'}}</button>
+            <button :disabled="!canGoNext()" class="m-2 pl-5 pr-5 w-4/12 bg-primary-color text-white rounded-full text-xl disabled:bg-gray-300" @click="goNext()">{{formProgress >= amountOfQuestions ? `Submit` : 'Next'}}</button>
         </div>
     </div>
 </template>
@@ -91,6 +91,15 @@ const goNext = function() {
 const goBack = function() {
     if (formProgress.value > 0) {
         formProgress.value --
+    }
+}
+
+const canGoNext = function() : boolean {
+    switch (formProgress.value) {
+        case 0:
+            return profile.artistName.length >= 2
+        default:
+            return true 
     }
 }
 
