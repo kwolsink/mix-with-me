@@ -25,38 +25,68 @@ beforeEach(async () => {
     unAuthDb = testEnv.unauthenticatedContext().database();
 })
 
-describe("users", () => {
-
+describe("profiles", () => {
     it("should allow authenticated users to read anyones profile", async() => {
         const path = "users/alice/profile"
         await assertSucceeds(get(ref(ourDb, path)))
         await assertSucceeds(get(ref(theirDb, path)))
         await assertFails(get(ref(unAuthDb, path)))
     }),
-    it("should allow users to write their own profile", async() => {
+    it("should allow a user to write to their own profile if it contains the correct fields", async() => {
         const path = "users/alice/profile"
-        await assertSucceeds(set(ref(ourDb, path), {"artist_name": "trusis"}))
-        await assertFails(set(ref(theirDb, path), {"artist_name": "trusis"}))
-        await assertFails(set(ref(unAuthDb, path), {"artist_name": "trusis"}))
+        const exampleProfile = {
+            artistName: 'foo',
+            bio: 'im a music producer',
+            lookingFor: 'a singer',
+            skills: {
+                producer: true,
+                singer: false,
+                rapper: false
+            },
+            producerSkills: {
+                flStudio: false,
+                abletonLive: true,
+                logicPro: false
+            }
+        }
+        await assertSucceeds(update(ref(ourDb, path), exampleProfile))
     }),
-    it("should only allow the user to read their own user root", async() => {
-        const path = "users/alice"
-        await assertSucceeds(get(ref(ourDb, path)))
-        await assertFails(get(ref(theirDb, path)))
-        await assertFails(get(ref(unAuthDb, path)))
-    }),
-    it("should allow the user to write their skills and update them", async() => {
-        const path = "users/alice/profile/skills"
-        await assertSucceeds(set(ref(ourDb, path), {ableton_live: true}))
-        await assertSucceeds(update(ref(ourDb, path), {ableton_live: false, fl_studio: true}))
-    }),
-    it("shouldn't allow the user to write an invalid skill", async() => {
-        const path = "users/alice/profile/skills"
-        await assertFails(set(ref(ourDb, path), {fake_skill: true}))
-        await assertFails(set(ref(ourDb, path), {ableton_live: "yesn't"}))
-    }),
-    it("shouldn't allow users to write random data to their profile", async() => {
+    it("should not allow a user to write to others profiles", async() => {
         const path = "users/alice/profile"
-        await assertFails(set(ref(ourDb, path), {fake_field: "test"}))
+        const exampleProfile = {
+            artistName: 'foo',
+            bio: 'im a music producer',
+            lookingFor: 'a singer',
+            skills: {
+                producer: true,
+                singer: false,
+                rapper: false
+            },
+            producerSkills: {
+                flStudio: false,
+                abletonLive: true,
+                logicPro: false
+            }
+        }
+        await assertFails(update(ref(theirDb, path), exampleProfile))
+    }),
+    it("should not allow a user to write invalid fields to their profile", async() => {
+        const path = "users/alice/profile"
+        const exampleProfile = {
+            fakeField: 'foo',
+            bio: 'im a music producer',
+            lookingFor: 'a singer',
+            skills: {
+                producer: true,
+                singer: false,
+                rapper: false
+            },
+            producerSkills: {
+                flStudio: false,
+                abletonLive: true,
+                logicPro: false
+            }
+        }
+        await assertFails(update(ref(theirDb, path), exampleProfile))
     })
 })

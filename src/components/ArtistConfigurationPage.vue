@@ -3,39 +3,35 @@
         <form class="m-5 pt-64">
             <div v-if="formProgress === 0" class="field flex flex-col justify-start">
                 <label class="question">What is your artist name?</label>
-                <input class="answer-text text-xl" type="text" />
+                <input class="answer-text text-xl" type="text" v-model="profile.artistName"/>
             </div>
             <div v-if="formProgress === 1" class="field">
                 <label class="question"> What type of musician are you?</label>
                 <div class="checkbox-container">
-                    <input class="answer-checkbox" type="checkbox" id="producer"/> 
+                    <input class="answer-checkbox" type="checkbox" id="producer" v-model="profile.skills.producer"/> 
                     <label class="checkbox-text" for="producer">Producer</label>
                 </div>
                 <div class="checkbox-container">
-                    <input class="answer-checkbox" type="checkbox" id="singer" />
+                    <input class="answer-checkbox" type="checkbox" id="singer" v-model="profile.skills.singer" />
                     <label class="checkbox-text" for="singer">Singer</label>
                 </div>
                 <div class="checkbox-container">  
-                    <input class="answer-checkbox" type="checkbox" id="rapper" />
+                    <input class="answer-checkbox" type="checkbox" id="rapper" v-model="profile.skills.rapper"/>
                     <label class="checkbox-text" for="rapper">Rapper</label>  
-                </div>
-                <div class="checkbox-container">    
-                    <input class="answer-checkbox" type="checkbox" id="instrument" />
-                    <label class="checkbox-text" for="instrument">I play an instrument</label>
                 </div>
             </div>
             <div v-if="formProgress === 2" class="field flex flex-col">
                 <label class="question">Which DAW(s) are you experienced with?</label>
                 <div class="checkbox-container">
-                    <input class="answer-checkbox" type="checkbox" id="fl-studio" />
+                    <input class="answer-checkbox" type="checkbox" id="fl-studio" v-model="profile.producerSkills.flStudio"/>
                     <label for="fl-studio" class="checkbox-text">FL Studio</label>
                 </div>
                 <div class="checkbox-container">
-                    <input class="answer-checkbox" type="checkbox" value="ableton-live" />
+                    <input class="answer-checkbox" type="checkbox" value="ableton-live" v-model="profile.producerSkills.abletonLive"/>
                     <label for="ableton-live" class="checkbox-text">Ableton Live</label>
                 </div>
                 <div class="checkbox-container">
-                    <input class="answer-checkbox" type="checkbox" value="logic-pro" />
+                    <input class="answer-checkbox" type="checkbox" value="logic-pro" v-model="profile.producerSkills.logicPro" />
                     <label for="logic-pro" class="checkbox-text">Logic Pro</label>
                 </div>
                 <div class="checkbox-container">
@@ -52,20 +48,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { saveProfile } from '../composables/profile_model'
+import Profile from '../interfaces/Profile'
 
 const amountOfQuestions = 2
 const formProgress = ref(0)
 
+/**
+ * These object fields are two way bounded with the form inputs
+ */
+const profile : Profile = reactive({
+    artistName: '',
+    bio: '',
+    lookingFor: '',
+    skills: {
+        producer: false,
+        singer: false,
+        rapper: false
+    },
+    producerSkills: {
+        flStudio: false,
+        abletonLive: false,
+        logicPro: false
+    }
+})
 
-
+/**
+ * Handles the next button of the form
+ */
 const goNext = function() {
-    if (formProgress.value >= amountOfQuestions) {
-        return
+    if (formProgress.value >= amountOfQuestions) {  // checks if we are at the last step of the form
+        saveProfile(profile).then(() => {console.log("profile saved")})
+        return;
     }
     formProgress.value += 1
 }
 
+/**
+ * Handles the back button of the form
+ */
 const goBack = function() {
     if (formProgress.value > 0) {
         formProgress.value --
@@ -73,7 +95,6 @@ const goBack = function() {
 }
 
 </script>
-
 
 <style scoped>
 .question {
