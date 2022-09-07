@@ -5,9 +5,9 @@ import ArtistConfigurationPage from './components/ArtistConfigurationPage.vue'
 import Carousel from './components/Carousel.vue'
 
 const routes = [
-    { path: '/', component: WelcomePage},
-    { path: '/configure', component: ArtistConfigurationPage},
-    { path: '/carousel', component: Carousel}
+    { path: '/', component: WelcomePage, name: 'welcome-page'},
+    { path: '/configure', component: ArtistConfigurationPage, name: 'artist-config-page'},
+    { path: '/carousel', component: Carousel, name: 'carousel'}
 ]
 
 const router = createRouter({
