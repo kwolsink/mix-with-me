@@ -53,6 +53,7 @@ import { saveProfile } from '../composables/profile_model'
 import { getAuthStateManager} from '../composables/auth_state_manager'
 import Profile from '../interfaces/Profile'
 import { User } from '@firebase/auth';
+import router from '../router';
 
 const amountOfQuestions = 2
 const formProgress = ref(0)
@@ -83,7 +84,7 @@ const profile : Profile = reactive({
 const goNext = function() {
     if (formProgress.value >= amountOfQuestions) {  // checks if we are at the last step of the form
         if (authStateManager.getCurrentUser() != null) {
-            saveProfile(authStateManager.getCurrentUser() as User, profile).then(() => {console.log("profile saved")})
+            saveProfile(authStateManager.getCurrentUser() as User, profile).then(() => {router.push({name: 'carousel', params: {}})})
         }
         return;
     }
