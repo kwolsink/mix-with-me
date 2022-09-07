@@ -5,7 +5,7 @@
                 Mix With Me
             </span>
         </div>
-        <OwnProfile></OwnProfile>
+        <ProfileUI v-if="userProfile !== undefined" :user-profile="userProfile"></ProfileUI>
 
         <div class="footer mt-auto flex flex-row border-t-2 border-primary-color h-14 items-center justify-between">
             <span>prof</span>
@@ -17,12 +17,19 @@
 </template>
 
 <script lang="ts" setup>
-import OwnProfile from './OwnProfile.vue';
+import ProfileUI from './ProfileUI.vue';
 import {ref} from 'vue'
 import { onValue, ref as dbref } from '@firebase/database';
 import firebase from '../firebaseconfig';
+import store from '../store';
 
 const userProfile = ref()
+if (store.getCurrentUser() !== undefined) { // sync userProfile with the db value
+    const userProfileRef = dbref(firebase.database, `/users/${store.getCurrentUser()?.uid}/profile`)
+    onValue(userProfileRef, (snapshot) => {
+        userProfile.value = snapshot.val()
+    }, {onlyOnce: true})
+}
 
 
 </script>
