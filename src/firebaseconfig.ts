@@ -15,7 +15,7 @@ const firebaseConfig = {
   messagingSenderId: "740385971274",
   appId: "1:740385971274:web:7e65788e913ba419645ab3",
   measurementId: "G-LZ1J9TZBRJ",
-  databaseURL: "https://mix-with-me-default-rtdb.europe-west1.firebasedatabase.app",
+  //databaseURL: "https://mix-with-me-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 // Initialize Firebase
