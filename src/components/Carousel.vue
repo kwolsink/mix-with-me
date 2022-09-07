@@ -5,7 +5,7 @@
                 Mix With Me
             </span>
         </div>
-        
+        <OwnProfile></OwnProfile>
 
         <div class="footer mt-auto flex flex-row border-t-2 border-primary-color h-14 items-center justify-between">
             <span>prof</span>
@@ -16,6 +16,13 @@
 
 </template>
 
+<script lang="ts" setup>
+import OwnProfile from './OwnProfile.vue';
+import {ref} from 'vue'
+import { onValue, ref as dbref } from '@firebase/database';
+import firebase from '../firebaseconfig';
 
-<style scoped>
-</style>
+const userProfile = ref()
+
+
+</script>
