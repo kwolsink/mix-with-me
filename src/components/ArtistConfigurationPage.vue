@@ -50,10 +50,13 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { saveProfile } from '../composables/profile_model'
+import { getAuthStateManager} from '../composables/auth_state_manager'
 import Profile from '../interfaces/Profile'
+import { User } from '@firebase/auth';
 
 const amountOfQuestions = 2
 const formProgress = ref(0)
+const authStateManager = getAuthStateManager()
 
 /**
  * These object fields are two way bounded with the form inputs
@@ -79,7 +82,9 @@ const profile : Profile = reactive({
  */
 const goNext = function() {
     if (formProgress.value >= amountOfQuestions) {  // checks if we are at the last step of the form
-        saveProfile(profile).then(() => {console.log("profile saved")})
+        if (authStateManager.getCurrentUser() != null) {
+            saveProfile(authStateManager.getCurrentUser() as User, profile).then(() => {console.log("profile saved")})
+        }
         return;
     }
     formProgress.value += 1
