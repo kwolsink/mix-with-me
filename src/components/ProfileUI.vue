@@ -10,7 +10,7 @@
                 <Tag v-if="userProfile.skills.rapper" tag-text="Rapper" tag-style="tag-style-3"></Tag>
             </div>
             <p class=" text-gray-500">
-                {{userProfile.bio.length === 0 ? 'This user has no biography' : userProfile.bio}}
+                {{userProfile.bio}}
             </p>
         </div>
         <div v-if="userProfile.lookingFor.length > 0" class="looking-for card">
