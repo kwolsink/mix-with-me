@@ -83,7 +83,7 @@ const profile : Profile = reactive({
 const goNext = function() {
     if (formProgress.value >= amountOfQuestions) {  // checks if we are at the last step of the form
         if (store.getCurrentUser() != undefined) {
-            saveProfile(store.getCurrentUser() as User, profile).then(() => {router.push({name: 'carousel', params: {}})})
+            saveProfile(store.getCurrentUser() as User, profile).then(() => {router.push({name: 'dashboard', params: {}})})
         }
         return;
     }

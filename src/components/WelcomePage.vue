@@ -25,7 +25,7 @@ const authenticatePopup = function() {
         const dbRef = ref(firebase.database, `/users/${user.uid}/profile`)
         const profile = get(dbRef).then((snapshot) => {
             if (snapshot.exists()) {
-                router.push('carousel')
+                router.push('dashboard')
             } else {
                 router.push('configure')
             }
