@@ -23,7 +23,7 @@ defineProps({
 <style scoped>
 
 .tag {
-    @apply rounded-full pl-2 pr-2 pt-0.5 pb-0.5 text-xs shadow-gray-400 shadow-sm
+    @apply rounded-full pl-2 pr-2 pt-0.5 pb-0.5 text-xs shadow-gray-400 shadow-sm mr-1 mt-1 mb-1
 }
 
 .tag-boring {
