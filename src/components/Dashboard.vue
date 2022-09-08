@@ -6,7 +6,7 @@
     </div>
 
     <div class="flex flex-col h-screen justify-center">
-        <ProfileUI v-if="curPage === 'profile' && userProfile !== undefined" :user-profile="userProfile"></ProfileUI>
+        <ProfilePage v-if="curPage === 'profile' && userProfile !== undefined" :user-profile="userProfile"></ProfilePage>
         <Carousel v-if="curPage === 'carousel'"></Carousel>
     </div>
 
@@ -25,6 +25,7 @@ import { onValue, ref as dbref } from '@firebase/database';
 import firebase from '../firebaseconfig';
 import store from '../store';
 import Carousel from './Carousel.vue';
+import ProfilePage from './ProfilePage.vue';
 
 type page = "profile" | "carousel" | "matches"
 const curPage : Ref<page> = ref("carousel")
