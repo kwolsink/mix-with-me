@@ -48,6 +48,6 @@ defineProps({
 
 <style scoped>
 .card {
-    @apply bg-gray-100 rounded-md shadow-gray-400 shadow-md m-3.5 p-5
+    @apply bg-gray-100 rounded-md shadow-gray-400 shadow-sm m-3.5 p-5
 }
 </style>
