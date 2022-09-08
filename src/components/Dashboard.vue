@@ -6,8 +6,8 @@
     </div>
 
     <div class="flex flex-col h-screen justify-center">
-
-        <ProfileUI v-if="userProfile !== undefined" :user-profile="userProfile"></ProfileUI>
+        <ProfileUI v-if="curPage === 'profile' && userProfile !== undefined" :user-profile="userProfile"></ProfileUI>
+        
     </div>
 
     <div class="footer fixed bottom-0 left-0 w-screen mt-auto flex flex-row border-t-2 border-primary-color h-14 items-center justify-between">
@@ -20,10 +20,13 @@
 
 <script lang="ts" setup>
 import ProfileUI from './ProfileUI.vue';
-import { ref } from 'vue'
+import { Ref, ref } from 'vue'
 import { onValue, ref as dbref } from '@firebase/database';
 import firebase from '../firebaseconfig';
 import store from '../store';
+
+type page = "profile" | "carousel" | "matches"
+const curPage : Ref<page> = ref("carousel")
 
 const userProfile = ref()
 if (store.getCurrentUser() !== undefined) { // sync userProfile with the db value
